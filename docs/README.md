@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center">AutoDroid API</h3>
+<h3 align="center">AutoDroid</h3>
 
 <div align="center">
 
@@ -28,7 +28,7 @@
 
 ## 📖 About <a name = "about"></a>
 
-This repository contains the API Gateway for the AutoDroid application.
+This repository contains the monorepo for the AutoDroid application.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -93,7 +93,7 @@ Once the application was built, fill ```docker-compose.yml``` with your environm
 docker compose up -d
 ```
 
-Make sure that your Firewalls, Load Balancers and your DNS is well configured. The backend application will be provided at port 3333 by default.
+Make sure that your Firewalls, Load Balancers and your DNS is well configured.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
