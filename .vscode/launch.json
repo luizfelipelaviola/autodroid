@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "name": "Attach",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/packages/backend/src/**/*.ts"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/packages/backend/src/index.js"
+    }
+  ],
+}

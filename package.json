@@ -1,0 +1,36 @@
+{
+  "name": "autodroid",
+  "author": "luizfelipelaviola <luiz@laviola.dev>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "wsrun dev",
+    "start": "wsrun start",
+    "lint": "wsrun lint",
+    "build": "wsrun build",
+    "test": "wsrun test",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "commitlint": "^17.7.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "wsrun": "^5.2.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

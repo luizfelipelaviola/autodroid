@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output   = "./metadata"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  datasets Dataset[] @relation(name: "Dataset_User")
+
+  @@map("users")
+}
+
+model File {
+  id String @id @default(uuid())
+
+  storage_provider String
+
+  filename    String
+  destination String
+  mime_type   String
+  extension   String
+  size        Int
+
+  payload Json
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  dataset Dataset? @relation(name: "Dataset_File")
+
+  @@map("files")
+}
+
+model Dataset {
+  id String @id @default(uuid())
+
+  user_id String
+  user    User   @relation(name: "Dataset_User", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  file_id String @unique
+  file    File   @relation(name: "Dataset_File", fields: [file_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  description String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  processings Processing[] @relation(name: "Processing_Dataset")
+
+  @@map("datasets")
+}
+
+model Processing {
+  id String @id @default(uuid())
+
+  dataset_id String
+  dataset    Dataset @relation(name: "Processing_Dataset", fields: [dataset_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  processor String
+
+  started_at  DateTime?
+  finished_at DateTime?
+
+  retries Int
+
+  destination String
+
+  payload Json
+  params  Json
+
+  status        String
+  status_description String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("processings")
+}

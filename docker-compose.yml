@@ -1,0 +1,71 @@
+version: '3.7'
+
+services:
+  autodroid_postgres_prod:
+    container_name: autodroid_postgres_prod
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=autodroid
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./.runtime/database/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - autodroid_api_network_prod
+
+  autodroid_redis_prod:
+    container_name: autodroid_redis_prod
+    image: redis:alpine
+    volumes:
+      - ./.runtime/database/redis:/data
+    ports:
+      - 6379:6379
+    restart: always
+    networks:
+      - autodroid_api_network_prod
+
+  autodroid_api_gateway_prod:
+    container_name: autodroid_api_gateway_prod
+    image: autodroid_api_gateway_prod
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    environment:
+      # General
+      - APP_URL=http://localhost:3333
+      - APP_PORT=3333
+      - NODE_ENV=production
+      - DEBUG=false
+
+      # Cors
+      - CORS_ALLOWED_FROM=*
+
+      # Database
+      - DATABASE_URL=postgresql://postgres:docker@autodroid_postgres_prod:5432/autodroid?schema=public
+      - DATABASE_LOGGER_ENABLED=false
+
+      # Redis
+      - REDIS_HOST=autodroid_redis_prod
+      - REDIS_PORT=6379
+      - REDIS_USER=
+      - REDIS_PASS=
+      - REDIS_DB=0
+
+      # Feature
+      - JOBS_ENABLED=true
+      - JOBS_CONCURRENCY=1
+    ports:
+      - 3333:3333
+    command: ./wait-for-it.sh autodroid_postgres_prod:5432 -s -- ./wait-for-it.sh autodroid_redis_prod:6379 -s -- bash -c "yarn run-s prisma:generate prisma:prod start"
+    depends_on:
+      - autodroid_postgres_prod
+      - autodroid_redis_prod
+    restart: always
+    networks:
+      - autodroid_api_network_prod
+
+networks:
+  autodroid_api_network_prod:

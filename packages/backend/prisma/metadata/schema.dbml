@@ -1,0 +1,59 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id String [pk]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  datasets datasets [not null]
+}
+
+Table files {
+  id String [pk]
+  storage_provider String [not null]
+  filename String [not null]
+  destination String [not null]
+  mime_type String [not null]
+  extension String [not null]
+  size Int [not null]
+  payload Json [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  dataset datasets
+}
+
+Table datasets {
+  id String [pk]
+  user_id String [not null]
+  user users [not null]
+  file_id String [unique, not null]
+  file files [not null]
+  description String [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  processings processings [not null]
+}
+
+Table processings {
+  id String [pk]
+  dataset_id String [not null]
+  dataset datasets [not null]
+  processor String [not null]
+  started_at DateTime
+  finished_at DateTime
+  retries Int [not null]
+  destination String [not null]
+  payload Json [not null]
+  params Json [not null]
+  status String [not null]
+  status_description String [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+}
+
+Ref: datasets.user_id > users.id [delete: Cascade]
+
+Ref: datasets.file_id - files.id [delete: Cascade]
+
+Ref: processings.dataset_id > datasets.id [delete: Cascade]
