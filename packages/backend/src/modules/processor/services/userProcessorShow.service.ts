@@ -11,7 +11,7 @@ interface IRequest {
 @injectable()
 class UserProcessorShowService {
   public async execute({ code }: IRequest): Promise<Processor> {
-    const processor = processors[code as keyof typeof processors]
+    const processor = processors.find((processor) => processor.code === code)
     if (!processor)
       throw new AppError({
         key: '@user_processor_show_service/PROCESSOR_NOT_FOUND',

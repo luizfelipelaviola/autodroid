@@ -11,6 +11,7 @@ export type IValidateProcessorParamsDTO = {
 
 export type IProcessor = {
   name: string
+  code: string
   image: string
   input_arg: string
   input_dir: string

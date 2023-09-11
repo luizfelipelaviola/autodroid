@@ -1,5 +1,6 @@
-{
-  "droidaugmentor": {
+[
+  {
+    "code": "droidaugmentor",
     "name": "Droid Augmentor",
     "description": "Process a dataset of Android apps to generate new samples of malware",
     "image": "sf23/droidaugmentor:latest",
@@ -38,4 +39,4 @@
       "verbosity": "20"
     }
   }
-}
+]

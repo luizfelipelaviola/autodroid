@@ -41,9 +41,7 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
     await this.client.ping()
 
     await Promise.all(
-      Object.values(processors).map((processor) =>
-        this.initProcessor(processor),
-      ),
+      Array.from(processors).map((processor) => this.initProcessor(processor)),
     )
   }
 
@@ -59,7 +57,7 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
 
     this.validateProcessorParams({
       params: processor.default_params,
-      processor: processor.name,
+      processor: processor.code,
     })
 
     return this.pullImage(image)
@@ -107,14 +105,17 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
       })
   }
 
-  private getProcessor(processor: string) {
-    const selectedProcessor = processors[processor as keyof typeof processors]
+  private getProcessor(processor_code: string): IProcessor {
+    const selectedProcessor = processors.find(
+      (processor) => processor.code === processor_code,
+    )
+
     if (!selectedProcessor)
       throw new AppError({
         key: '@dataset_processor/INVALID_PROCESSOR',
-        message: `Invalid processor. Current processors are: ${Object.keys(
-          processors,
-        ).join(', ')}`,
+        message: `Invalid processor. Current processors are: ${processors
+          .map((processor) => processor.code)
+          .join(', ')}`,
       })
 
     return selectedProcessor

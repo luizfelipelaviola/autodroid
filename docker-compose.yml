@@ -33,6 +33,8 @@ services:
     build:
       context: ./packages/backend
       dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       # General
       - APP_URL=http://localhost:3333
