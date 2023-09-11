@@ -1,26 +1,27 @@
 # TODO
 
+## SECURITY ISSUES
+- [ ] Avoid running as root
+- [ ] Enable TLS for Docker in Docker
+
 ## MUST HAVE
-- [X] Datasets and processing are public - the User reference it's just to know who created it
-- [X] Cannot delete datasets with open processings
-- [X] Get processor options
+- [ ] Avoid sending jobs to failed
+- [ ] Handle concurrency
+- [ ] Ask droid augmentor team to remove $USER param
+  - [ ] Test file deletion after this removal
 - [ ] Allow dataset upload .zip, .7z and .rar
   - [ ] Check content first
 - [ ] JSdoc or similar like apiDoc
-- [X] JSON specification for the API like ThunderClient, Postman or Insominia
-- [ ] DockerCompose file
-- [X] Dockerfile
-- [ ] Workspace
-- [ ] Repository documentation
-  - [ ] About the routes
-  - [ ] About the necessary configuration
-    - Put only the necessary params, avoid shorthands or just one
-  - [ ] About running the software
+- [ ] Better repository documentation
+  - [ ] Clear instructions about the two ways to run it
+  - [ ] Single command to run it
+  - [ ] References to the installation of the technologies
 - [ ] Frontend
 - [ ] Pagination
 
 ## NICE TO HAVE
 - [ ] Allow upload dataset from URL
+- [ ] Zip output
 
 ## EXPERIMENTS
 - [ ] Upload to CDN

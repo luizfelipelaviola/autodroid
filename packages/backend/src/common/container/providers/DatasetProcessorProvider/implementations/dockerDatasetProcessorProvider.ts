@@ -1,3 +1,5 @@
+import os from 'node:os'
+import fs from 'node:fs'
 import Docker from 'dockerode'
 
 import { IDatasetProcessorProvider } from '../models/IDatasetProcessor.provider'
@@ -35,9 +37,16 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
   }
 
   private async init(): Promise<void> {
-    this.client = new Docker({
-      socketPath: '/var/run/docker.sock',
-    })
+    this.client = new Docker(
+      fs.existsSync('/var/run/docker.sock')
+        ? {
+            socketPath: '/var/run/docker.sock',
+          }
+        : {
+            host: process.env.DOCKER_HOST,
+            port: Number(process.env.DOCKER_PORT),
+          },
+    )
     await this.client.ping()
 
     await Promise.all(
@@ -241,11 +250,13 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
     }
 
     try {
+      const uid = os.userInfo().uid
+
       const container = await this.client.createContainer({
         Image: selectedProcessor.image,
         Cmd: [
           selectedProcessor.command,
-          '1000',
+          uid.toString(),
           ...Object.entries(containerArgs).flatMap(([key, value]) => [
             `--${key}`,
             value,
@@ -255,10 +266,10 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
           Binds: [
             `${process.cwd()}/${dataset.file.destination}:${
               selectedProcessor.input_dir
-            }`,
+            }:rw`,
             `${process.cwd()}/${processingRecord.destination}/${
               processingRecord.id
-            }:${selectedProcessor.output_dir}`,
+            }:${selectedProcessor.output_dir}:rw`,
           ],
         },
       })

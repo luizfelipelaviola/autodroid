@@ -20,6 +20,10 @@ declare global {
       REDIS_PASS?: string
       REDIS_DB?: number
 
+      // Docker
+      DOCKER_HOST: string
+      DOCKER_PORT: number
+
       // Feature
       JOBS_ENABLED: string
       JOBS_CONCURRENCY: number

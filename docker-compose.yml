@@ -1,6 +1,19 @@
 version: '3.7'
 
 services:
+  autodroid_dind:
+    container_name: autodroid_dind
+    image: docker:dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - ./.runtime/app/storage:/usr/app/storage
+      - ./.runtime/docker:/var/lib/docker
+    restart: always
+    networks:
+      - autodroid_api_network_prod
+
   autodroid_postgres_prod:
     container_name: autodroid_postgres_prod
     image: postgres:14
@@ -34,7 +47,7 @@ services:
       context: ./packages/backend
       dockerfile: Dockerfile
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./.runtime/app/storage:/usr/app/storage
     environment:
       # General
       - APP_URL=http://localhost:3333
@@ -56,13 +69,18 @@ services:
       - REDIS_PASS=
       - REDIS_DB=0
 
+      # Docker
+      - DOCKER_HOST=http://autodroid_dind
+      - DOCKER_PORT=2375
+
       # Feature
       - JOBS_ENABLED=true
       - JOBS_CONCURRENCY=1
     ports:
       - 3333:3333
-    command: ./wait-for-it.sh autodroid_postgres_prod:5432 -s -- ./wait-for-it.sh autodroid_redis_prod:6379 -s -- bash -c "yarn run-s prisma:generate prisma:prod start"
+    command: ./wait-for-it.sh autodroid_dind:2375 -s -- ./wait-for-it.sh autodroid_postgres_prod:5432 -s -- ./wait-for-it.sh autodroid_redis_prod:6379 -s -- bash -c "yarn run-s prisma:generate prisma:prod start"
     depends_on:
+      - autodroid_dind
       - autodroid_postgres_prod
       - autodroid_redis_prod
     restart: always
