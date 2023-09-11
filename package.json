@@ -16,6 +16,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^17.7.0",
     "commitizen": "^4.3.0",
     "commitlint": "^17.7.1",
     "cz-conventional-changelog": "^3.3.0",

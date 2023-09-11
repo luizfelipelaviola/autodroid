@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
-    <img width="200px" height="60px" src="../.github/docs/logo.svg" alt="Project logo" style="fill:#000000">
+    <img width="200px" height="60px" src="../.github/docs/logo.png" alt="Project logo" style="fill:#000000">
   </a>
 </p>
 
