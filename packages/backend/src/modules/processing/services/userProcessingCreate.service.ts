@@ -69,7 +69,7 @@ class UserProcessingCreateService {
       started_at: null,
       params,
       payload: {},
-      destination: 'storage/processings',
+      destination: 'storage/processing',
       retries: 0,
       status: PROCESSING_STATUS.PENDING,
       status_description: 'Processing requested and is now pending.',

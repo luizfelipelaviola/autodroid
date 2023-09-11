@@ -245,6 +245,7 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
         Image: selectedProcessor.image,
         Cmd: [
           selectedProcessor.command,
+          '1000',
           ...Object.entries(containerArgs).flatMap(([key, value]) => [
             `--${key}`,
             value,
