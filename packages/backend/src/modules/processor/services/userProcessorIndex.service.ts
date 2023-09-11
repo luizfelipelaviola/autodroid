@@ -6,9 +6,9 @@ import { Processor } from '../entities/processor.entity'
 @injectable()
 class UserProcessorIndexService {
   public async execute(): Promise<Processor[]> {
-    return Object.entries(processors).map(([code, processor]) =>
+    return processors.map((processor) =>
       Processor.make({
-        code,
+        code: processor.code,
         name: processor.name,
         description: processor.description,
         allowed_params: processor.allowed_params,
