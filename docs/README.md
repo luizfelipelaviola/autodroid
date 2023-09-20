@@ -110,7 +110,7 @@ The `./runtime` folder is useful also to study the application data structure an
 
 Running this application using the Docker compose environment is the recommended way to run it, avoiding to installing each dependency manually.
 
-A guide to setup the project manually is available at the [manual Setup](./MANUAL_SETUP.md) guide.
+A guide to setup the project manually is available at the [manual setup](./MANUAL_SETUP.md) guide.
 
 ## 📱 Usage <a name="usage"></a>
 
