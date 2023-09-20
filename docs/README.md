@@ -23,8 +23,8 @@
 - [Built Using](#built_using)
 - [Contributing and Coworking](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
-- [Codebase Structure](./docs/CODEBASE_STRUCTURE.md)
-- [Code Guidelines](./docs/CODE_GUIDELINES.md)
+- [Codebase Structure](./CODEBASE_STRUCTURE.md)
+- [Code Guidelines](./CODE_GUIDELINES.md)
 
 ## 📖 About <a name = "about"></a>
 
@@ -110,7 +110,7 @@ The `./runtime` folder is useful also to study the application data structure an
 
 Running this application using the Docker compose environment is the recommended way to run it, avoiding to installing each dependency manually.
 
-A guide to setup the project manually is available at the [MANUAL_SETUP.md](./docs/MANUAL_SETUP.md) file.
+A guide to setup the project manually is available at the [MANUAL_SETUP.md](./MANUAL_SETUP.md) file.
 
 ## 📱 Usage <a name="usage"></a>
 
@@ -126,7 +126,7 @@ This two URLs will be available until the application is stopped.
 
 To use the Web Frontend, access the URL above on your browser and follow the instructions on the screen.
 
-To use the REST API directly, you can follow the instructions at the [API documentation](./docs/API.md) or you can use REST client tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/). There's a [Insomnia collection](./docs/collections/Insomnia.json) on the ```./docs/collections``` folder of this repository that you can import to your REST client application.
+To use the REST API directly, you can follow the instructions at the [API documentation](./API.md) or you can use REST client tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/). There's a [Insomnia collection](./collections/Insomnia.json) on the ```./docs/collections``` folder of this repository that you can import to your REST client application.
 
 ### Entities
 
@@ -141,7 +141,7 @@ This application uses anonymous authentication by just providing a existing user
 
 ### Processor
 
-The available processors can be changed only manually by the application administrator using the [processors.json](./packages/backend/processors.json) file. This file is loaded on the application startup and it's used to define the available processors, its configurations and the necessary images to be pulled from Docker Hub.
+The available processors can be changed only manually by the application administrator using the [processors.json](../packages/backend/processors.json) file. This file is loaded on the application startup and it's used to define the available processors, its configurations and the necessary images to be pulled from Docker Hub.
 
 The configuration parameters are described below:
 - `code`: the identifier of the processor, used to reference it on the processing request.
@@ -173,7 +173,7 @@ To build the application manually again for production, you can follow the instr
 
 The dataset file can be uploaded by the user using the Web Frontend or by the REST API. The dataset file must be a valid file with a valid MIME type, according to the processor configuration.
 
-There is a [dataset example](./docs/samples/dataset_example.csv) on the ```./docs/samples``` folder of this repository that you can use to test the application.
+There is a [dataset example](./samples/dataset_example.csv) on the ```./docs/samples``` folder of this repository that you can use to test the application.
 
 The user reference is just to mention the user that uploaded the dataset file.
 It can be downloaded, changed or deleted by any other user.
@@ -197,26 +197,26 @@ The following flowchart describes the common flow of the application:
 
 ## 🏛 Architecture <a name="architecture"></a>
 
-This repository contains the monorepo for the AutoDroid application, which [Codebase Structure](./docs/CODEBASE_STRUCTURE.md) is available at the ```./docs``` folder of this repository.
+This repository contains the monorepo for the AutoDroid application, which [Codebase Structure](./CODEBASE_STRUCTURE.md) is available at the ```./docs``` folder of this repository.
 
 The core of this application is the backend, which is a REST API built using Node.js and Express, and it's available at the ```./packages/backend``` folder of this repository.
 
 The system view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
 
 <p align="center">
-  <img src="../.github/docs/1system.png" alt="C4 system model">
+  <img src="../.github/docs/1system.jpg" alt="C4 system model">
 </p>
 
 The container view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
 
 <p align="center">
-  <img src="../.github/docs/2container.png" alt="C4 container model">
+  <img src="../.github/docs/2container.jpg" alt="C4 container model">
 </p>
 
 The component view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
 
 <p align="center">
-  <img src="../.github/docs/3component.png" alt="C4 component model">
+  <img src="../.github/docs/3component.jpg" alt="C4 component model">
 </p>
 
 ## 🔧 Running the tests <a name = "tests"></a>
