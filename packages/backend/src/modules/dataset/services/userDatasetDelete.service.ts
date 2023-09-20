@@ -27,7 +27,7 @@ class UserDatasetDeleteService {
     @inject('FileRepository')
     private fileRepository: IFileRepository,
 
-    @inject('ProcessingReposiroty')
+    @inject('ProcessingRepository')
     private processingRepository: IProcessingRepository,
   ) {}
 
