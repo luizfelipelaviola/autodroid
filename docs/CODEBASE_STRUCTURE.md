@@ -4,8 +4,11 @@
 .husky: git hooks (please do not edit without using Husky CLI)
 .vscode: vscode configuration
 
+## Backend (packages/backend) Structure
+
 dist: contains the compiled files
 prisma: contains all the files related to the database managed by Prisma
+scripts: contains all the scripts related to the application
 
 src: contains all the files related to the application
 src/@types: global type definitions

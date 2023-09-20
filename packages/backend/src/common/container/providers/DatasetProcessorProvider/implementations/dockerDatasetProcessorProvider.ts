@@ -1,6 +1,7 @@
 import os from 'node:os'
 import fs from 'node:fs'
 import Docker from 'dockerode'
+import { inject, injectable } from 'tsyringe'
 
 import { IDatasetProcessorProvider } from '../models/IDatasetProcessor.provider'
 import { executeAction } from '@common/util/executeAction'
@@ -12,10 +13,10 @@ import {
 import processors from '@/processors.json'
 import { AppError } from '@common/errors/AppError'
 import { Processing } from '@modules/processing/entities/processing.entity'
-import { inject, injectable } from 'tsyringe'
 import { IInMemoryDatabaseProvider } from '../../InMemoryDatabaseProvider/models/IInMemoryDatabase.provider'
 import { IProcessingRepository } from '@common/container/repositories'
 import { PROCESSING_STATUS } from '@modules/processing/types/processingStatus.enum'
+import { sleep } from '@common/util/sleep'
 
 @injectable()
 class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
@@ -47,6 +48,9 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
             port: Number(process.env.DOCKER_PORT),
           },
     )
+
+    await sleep(1000)
+
     await this.client.ping()
 
     await Promise.all(
@@ -104,6 +108,8 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
         },
       )
     })
+
+    await sleep(5000)
 
     const exists = await this.checkIfImageExists(image)
 

@@ -23,8 +23,6 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./.runtime/database/postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
     restart: always
     networks:
       - autodroid_api_network_prod
@@ -34,8 +32,6 @@ services:
     image: redis:alpine
     volumes:
       - ./.runtime/database/redis:/data
-    ports:
-      - 6379:6379
     restart: always
     networks:
       - autodroid_api_network_prod
