@@ -54,7 +54,7 @@ The following steps will guide you through the process of running this applicati
 
 To get started, the machine that will run this application must have the following requirements:
 
-### Requirements <a name = "requirements"></a>
+### Host Requirements <a name = "requirements"></a>
 
 - Unix based OS (Linux or MacOS - Windows is experimental)
 - Virtualization enabled on BIOS
@@ -87,7 +87,7 @@ This script will start the application using Docker compose.
 The startup of the application may take a few minutes, depending on your internet connection and the size of the given "processors".
 The terminal must be kept open during the application execution.
 
-If the startup was successful, you should see some console messages the following ones:
+If the startup was successful, you should see some console messages like the following ones:
 
 ```bash
 autodroid_api_gateway_prod  | 🆗 Database connection success.
@@ -110,7 +110,7 @@ The `./runtime` folder is useful also to study the application data structure an
 
 Running this application using the Docker compose environment is the recommended way to run it, avoiding to installing each dependency manually.
 
-A guide to setup the project manually is available at the [MANUAL_SETUP.md](./MANUAL_SETUP.md) file.
+A guide to setup the project manually is available at the [manual Setup](./MANUAL_SETUP.md) guide.
 
 ## 📱 Usage <a name="usage"></a>
 
