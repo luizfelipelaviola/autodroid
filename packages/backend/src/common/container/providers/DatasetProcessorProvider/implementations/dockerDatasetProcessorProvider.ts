@@ -34,6 +34,7 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
       action: () => this.init(),
       actionName: 'Docker dataset processor provider connection',
       logging: true,
+      maxAttempts: 0,
     })
   }
 
@@ -84,40 +85,45 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
   }
 
   private async pullImage(image: string): Promise<void> {
-    const stream = await this.client.pull(image, {})
+    try {
+      await new Promise((resolve, reject) => {
+        console.log(`🔃 Pulling image ${image}...`)
 
-    await new Promise((resolve, reject) => {
-      console.log(`🔃 Pulling image ${image}...`)
-      this.client.modem.followProgress(
-        stream,
-        (err: any, res: any) => {
-          if (err) {
-            console.log(`❌ Error pulling image ${image}: ${err?.message}`)
-            reject(err)
-          } else {
+        this.client.pull(image, (err: any, stream: any) => {
+          if (err) reject(err)
+
+          this.client.modem.followProgress(stream, onFinished, onProgress)
+
+          function onFinished(err: any, output: any) {
+            if (err) return reject(err)
+
             console.log(`\n🆗 Image ${image} pulled successfully.`)
-            resolve(res)
+            return resolve(output)
           }
-        },
-        (event) => {
-          process.stdout.write(
-            `🔃 Pulling ${image} - ${event.status || ''} ${
-              event.progress || ''
-            }\r`,
-          )
-        },
-      )
-    })
 
-    await sleep(5000)
-
-    const exists = await this.checkIfImageExists(image)
-
-    if (!exists)
-      throw new AppError({
-        key: '@dataset_processor/IMAGE_NOT_FOUND',
-        message: `Image ${image} not found.`,
+          function onProgress(event: any) {
+            console.log(
+              `🔃 Pulling ${image} - ${event.status || ''} ${
+                event.progress || ''
+              }`,
+            )
+          }
+        })
       })
+
+      await sleep(5000)
+
+      const exists = await this.checkIfImageExists(image)
+
+      if (!exists)
+        throw new AppError({
+          key: '@dataset_processor/IMAGE_NOT_FOUND',
+          message: `Image ${image} not found.`,
+        })
+    } catch (err: any) {
+      console.log(`❌ Error pulling image ${image}: ${err?.message}`)
+      throw new Error()
+    }
   }
 
   private getProcessor(processor_code: string): IProcessor {
