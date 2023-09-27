@@ -20,6 +20,7 @@
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
 - [Built Using](#built_using)
 - [Contributing and Coworking](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
@@ -59,7 +60,7 @@ To get started, the machine that will run this application must have the followi
 - Unix based OS (Linux or MacOS - Windows is experimental)
 - Virtualization enabled on BIOS
 - Minimum of 4GB of RAM
-- Minimum of 5GB of free disk space depending on the available "processors" (for files, processing result, database and Docker images)
+- Minimum of 10GB of free disk space depending on the available "processors" (for files, processing result, database and Docker images)
 - [Git](https://git-scm.com/downloads) installed
 - [Docker](https://docs.docker.com/get-docker/) installed
 
@@ -245,6 +246,53 @@ docker compose up -d
 ```
 
 Make sure that your Firewalls, Load Balancers and your DNS is well configured.
+
+## 🛠 Troubleshooting <a name = "troubleshooting"></a>
+
+The Docker universe is awesome, but sometimes it can be a little bit tricky. Some errors may occur during the application execution, and some of them might be related to Docker.
+
+### Errors before the application startup
+
+If you are facing some errors before the application startup, please check the following items:
+
+- Check if you have the [requirements](#requirements) installed on your machine.
+- Check if you have the [Docker](https://docs.docker.com/get-docker/) running on your machine.
+- Check if you have enough free disk space on your machine, at least 10GB.
+- Check if you can pull another images from Docker hub, like `docker run --rm hello-world:latest`.
+
+### Cleaning the Docker environment
+
+If you are facing some errors related to Docker, you can try to clean the Docker environment by running the following commands:
+
+```bash
+# Stop all containers
+docker compose down
+docker stop $(docker ps -q)
+
+# Remove all files from the runtime folder
+sudo rm -rf ./.runtime
+
+# Remove all images related to this project
+docker rmi $(docker images -q -f "reference=autodroid_*")
+
+# (Optional) Prune your Docker environment
+docker system prune -a
+```
+
+### Checking the steps
+
+If you are facing some errors during the application startup, you can check the steps of the startup by running the following commands:
+
+```bash
+# Try to use any image from Docker Hub that isn't in your machine
+docker rmi hello-world
+docker run --rm hello-world:latest
+
+# Try to build the application manually, in case of error, send the error message to the project maintainer
+docker compose build --no-cache
+```
+
+After running this steps, if the error persists, please open an issue on this repository.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
