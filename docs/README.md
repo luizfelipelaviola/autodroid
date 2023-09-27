@@ -57,7 +57,7 @@ To get started, the machine that will run this application must have the followi
 
 ### Host Requirements <a name = "requirements"></a>
 
-- Unix based OS (Linux or MacOS - Windows is experimental)
+- Linux OS (e.g. Ubuntu, Debian, and others...) (MacOS/Windows is experimental)
 - Virtualization enabled on BIOS
 - Minimum of 4GB of RAM
 - Minimum of 10GB of free disk space depending on the available "processors" (for files, processing result, database and Docker images)
