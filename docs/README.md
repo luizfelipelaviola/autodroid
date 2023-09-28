@@ -275,6 +275,9 @@ sudo rm -rf ./.runtime
 # Remove all images related to this project
 docker rmi $(docker images -q -f "reference=autodroid_*")
 
+# Restart your network service
+sudo systemctl restart NetworkManager.service
+
 # (Optional) Prune your Docker environment
 docker system prune -a
 ```
