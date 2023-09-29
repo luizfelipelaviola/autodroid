@@ -62,13 +62,6 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
   private async initProcessor(processor: IProcessor): Promise<void> {
     const { image } = processor
 
-    const exists = await this.checkIfImageExists(image)
-
-    if (exists) {
-      console.log(`🆗 Image ${image} loaded.`)
-      return
-    }
-
     this.validateProcessorParams({
       params: processor.default_params,
       processor: processor.code,
@@ -378,6 +371,7 @@ class DockerDatasetProcessorProvider implements IDatasetProcessorProvider {
           id: processingRecord.id,
         },
         {
+          started_at: processingRecord.started_at || new Date(),
           status: containerInfo.State.Running
             ? PROCESSING_STATUS.PROCESSING
             : containerInfo.State.ExitCode === 0

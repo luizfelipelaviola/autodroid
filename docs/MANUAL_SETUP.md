@@ -68,27 +68,7 @@ Follow the [Usage](../README.md#usage) instructions to use the project.
 
 ## Deployment
 
-To deploy the project manually (without Docker), you need to build the frontend and backend separately.
-
-### Frontend
-
-Navigate to the frontend folder:
-
-```bash
-cd ./packages/frontend
-```
-
-To build this frontend for production, use the command below:
-
-```bash
-yarn build
-```
-
-This build outputs just static files that can be served by any web server.
-
-Move the `build` folder to your web server and configure it to serve the static files:
-
-You can use [Nginx](https://www.nginx.com/) or [Apache](https://httpd.apache.org/), for example.
+To deploy the project manually (without Docker), you need to build the backend separately.
 
 ### Backend
 

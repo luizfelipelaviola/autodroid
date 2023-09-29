@@ -1,4 +1,5 @@
 import { container } from 'tsyringe'
+import fs from 'node:fs'
 import express, { NextFunction, Request, Response } from 'express'
 
 import { UserProcessingShowService } from '@modules/processing/services/userProcessingShow.service'
@@ -14,10 +15,22 @@ class ProcessingFileController {
       processing_id: req.params.processing_id,
     })
 
-    req.url = path.basename(req.originalUrl)
-    express.static(
-      path.join(process.cwd(), processing.destination, processing.id),
-    )(req, res, next)
+    const filePath = path.join(
+      process.cwd(),
+      processing.destination,
+      processing.id,
+      req.params[0],
+    )
+    if (!fs.existsSync(filePath)) return res.status(404).send()
+    if (!fs.lstatSync(filePath).isFile()) return res.status(404).send()
+
+    const staticPath = path.join(
+      process.cwd(),
+      processing.destination,
+      processing.id,
+    )
+    req.url = req.params[0]
+    express.static(staticPath)(req, res, next)
   }
 }
 

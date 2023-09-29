@@ -99,7 +99,13 @@ autodroid_api_gateway_prod  | 🆗 Processing background jobs on @autodroid/api.
 autodroid_api_gateway_prod  | ⚡️ @autodroid/api production version X using Node.js X running at port 3333 with PID X.
 ```
 
-After successfully starting the application, you can use it by following the [usage](#usage) instructions.
+After successfully starting the application, you can run a demo executing the following script on another terminal:
+
+```bash
+./demo.sh
+```
+
+Or you can continue manually can use it by following the [usage](#usage) instructions.
 
 To stop the application, press ```Ctrl + C``` on the terminal or run ```docker compose down``` on the root of this repository in case you are running the application on detached mode.
 
@@ -115,17 +121,12 @@ A guide to setup the project manually is available at the [manual setup](./MANUA
 
 ## 📱 Usage <a name="usage"></a>
 
-This application provides a REST API and a WEB FRONTEND on the Docker compose environment.
-
-There are two ways to use this application, by the REST API or by the Web Frontend.
+This application provides a REST API on the Docker compose environment.
 
 By default, it will be available on your local machine on the following URLs:
-- Web Frontend (port 80): http://localhost
 - REST API (port 3333): http://localhost:3333
 
-This two URLs will be available until the application is stopped.
-
-To use the Web Frontend, access the URL above on your browser and follow the instructions on the screen.
+This url will be available until the application is stopped.
 
 To use the REST API directly, you can follow the instructions at the [API documentation](./API.md) or you can use REST client tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/). There's a [Insomnia collection](./collections/Insomnia.json) on the ```./docs/collections``` folder of this repository that you can import to your REST client application.
 
@@ -146,8 +147,8 @@ The available processors can be changed only manually by the application adminis
 
 The configuration parameters are described below:
 - `code`: the identifier of the processor, used to reference it on the processing request.
-- `name`: the name of the processor, used to display it on the Web Frontend.
-- `description`: the description of the processor, used to display it on the Web Frontend.
+- `name`: the name of the processor.
+- `description`: the description of the processor.
 - `image`: the Docker image of the processor, used to pull it from Docker Hub. The target image should be public.
 - `input_arg`: the key of the argument that will be used to pass the dataset file path to the processor.
 - `input_dir`: the directory where the dataset file will be placed on the processor container using volumes.
@@ -172,7 +173,7 @@ To build the application manually again for production, you can follow the instr
 
 ### Dataset
 
-The dataset file can be uploaded by the user using the Web Frontend or by the REST API. The dataset file must be a valid file with a valid MIME type, according to the processor configuration.
+The dataset file can be uploaded by the user using the REST API. The dataset file must be a valid file with a valid MIME type, according to the processor configuration.
 
 There is a [dataset example](./samples/dataset_example.csv) on the ```./docs/samples``` folder of this repository that you can use to test the application.
 
@@ -181,7 +182,7 @@ It can be downloaded, changed or deleted by any other user.
 
 ### Processing
 
-The processing request can be made by the user using the Web Frontend or by the REST API. The processing request must be made by a valid user and must contain a valid dataset file and a valid processor followed by the desired parameters.
+The processing request can be made by the user using the REST API. The processing request must be made by a valid user and must contain a valid dataset file and a valid processor followed by the desired parameters.
 
 The processing request will be queued and processed by the application, and the processing result will be available on the processing entity. The process can take a several minutes, hours or even days depending on the processor and the dataset file.
 

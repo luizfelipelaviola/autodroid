@@ -24,7 +24,7 @@ const errorMiddleware = async (
 
   const errors = await new Youch(err, req).toJSON()
 
-  if (String(errors.error?.message).includes('JSON at position'))
+  if (String(errors.error?.message).includes('JSON'))
     return res.status(400).json({
       code: '@general/JSON_ERROR',
       message: 'Your request has problems on the JSON structure.',

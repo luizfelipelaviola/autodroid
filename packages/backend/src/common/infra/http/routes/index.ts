@@ -9,6 +9,8 @@ import { processorRouter } from '@modules/processor/http/routes/processor.routes
 
 const router = Router()
 
+router.use('/health', (req, res) => res.status(200).json({ status: 'ok' }))
+
 router.use('/user', userRouter)
 router.use('/processor', processorRouter)
 

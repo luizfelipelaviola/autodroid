@@ -7,7 +7,6 @@
 ## NICE TO HAVE
 - [ ] Avoid sending jobs to failed
 - [ ] Handle concurrency
-- [ ] Ask droid augmentor team to remove $USER param
   - [ ] Test file deletion after this removal
 - [ ] Allow dataset upload .zip, .7z and .rar
 - [ ] Compress the processing result
