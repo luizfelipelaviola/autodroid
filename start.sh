@@ -11,9 +11,10 @@ if ! [ -x "$(command -v git)" ]; then
 fi
 
 git checkout master -f
-git fetch --all --tags --prune
-git checkout tags/wrseg23 -f
 git pull
+git fetch --all --tags --prune -f
+git checkout tags/wrseg23 -f
+git pull -f
 
 if docker compose --version &> /dev/null; then
   docker compose pull
