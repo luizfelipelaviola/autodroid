@@ -10,9 +10,9 @@ if ! [ -x "$(command -v git)" ]; then
   exit 1
 fi
 
-git checkout master
+git checkout master -f
 git fetch --all --tags --prune
-git checkout tags/wrseg23
+git checkout tags/wrseg23 -f
 git pull
 
 if docker compose --version &> /dev/null; then
