@@ -10,6 +10,7 @@ if ! [ -x "$(command -v git)" ]; then
   exit 1
 fi
 
+git checkout master
 git fetch --all --tags --prune
 git checkout tags/wrseg23
 git pull
