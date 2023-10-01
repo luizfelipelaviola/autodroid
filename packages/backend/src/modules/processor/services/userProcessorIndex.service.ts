@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe'
 
-import processors from '@/processors.json'
+import processors from '@/shared/processors.json'
 import { Processor } from '../entities/processor.entity'
 
 @injectable()

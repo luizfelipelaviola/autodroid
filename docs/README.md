@@ -143,7 +143,7 @@ This application uses anonymous authentication by just providing a existing user
 
 ### Processor
 
-The available processors can be changed only manually by the application administrator using the [processors.json](../packages/backend/processors.json) file. This file is loaded on the application startup and it's used to define the available processors, its configurations and the necessary images to be pulled from Docker Hub.
+The available processors can be changed only manually by the application administrator using the [processors.json](../packages/backend/shared/processors.json) file. This file is loaded on the application startup and it's used to define the available processors, its configurations and the necessary images to be pulled from Docker Hub.
 
 The configuration parameters are described below:
 - `code`: the identifier of the processor, used to reference it on the processing request.
@@ -159,7 +159,7 @@ The configuration parameters are described below:
 - `allowed_mime_types`: the list of accepted MIME types for the dataset file. Will impact on the dataset file upload validation also.
 - `default_params`: the default parameters for the processor. Will be used if the specified parameter is not provided on the processing request.
 
-After changing the processors.json, if running on Docker or a production environment, you'll need to build the application again.
+After changing the processors.json, if running on Docker or a production environment, you'll need to restart the application to apply the changes.
 
 To rebuild the application using the Docker compose environment, you can run the following command on the root of this repository:
 

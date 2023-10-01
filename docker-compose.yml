@@ -38,12 +38,13 @@ services:
 
   autodroid_api_gateway_prod:
     container_name: autodroid_api_gateway_prod
-    image: autodroid_api_gateway_prod
+    image: luizfelipelaviola/autodroid-api:latest
     build:
       context: ./packages/backend
       dockerfile: Dockerfile
     volumes:
       - ./.runtime/app/storage:/usr/app/storage
+      - ./packages/backend/shared:/usr/app/shared
     environment:
       # General
       - APP_URL=http://localhost:3333

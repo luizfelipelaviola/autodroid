@@ -15,9 +15,11 @@ git checkout tags/wrseg23
 git pull
 
 if command -v "docker compose" &> /dev/null; then
+  docker compose pull
   docker compose up
   docker compose down
 elif command -v "docker-compose" &> /dev/null; then
+  docker-compose pull
   docker-compose up
   docker-compose down
 else

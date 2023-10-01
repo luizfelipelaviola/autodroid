@@ -10,7 +10,7 @@ import {
   IProcessor,
   IValidateProcessorParamsDTO,
 } from '../types/IDatasetProcessor.dto'
-import processors from '@/processors.json'
+import processors from '@/shared/processors.json'
 import { AppError } from '@common/errors/AppError'
 import { Processing } from '@modules/processing/entities/processing.entity'
 import { IInMemoryDatabaseProvider } from '../../InMemoryDatabaseProvider/models/IInMemoryDatabase.provider'
