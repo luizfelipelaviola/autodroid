@@ -1,24 +1,56 @@
-import { Expose } from 'class-transformer'
+import { Field, ID, ObjectType } from "type-graphql";
+import { Exclude, Type } from "class-transformer";
 
-import { plain } from '@common/util/instanceParser'
-import { UserEntityType } from '@common/types/models'
-import { Dataset } from '@modules/dataset/entities/dataset.entity'
+// Configuration import
+import { getAdminConfig } from "@config/admin";
 
+// Type import
+import { UserEntityType } from "@shared/types/models";
+
+// Entity import
+import { PaginationConnection } from "@modules/pagination/entities/paginationConnection.entity";
+import { UserAuthProviderConn } from "./userAuthProviderConn.entity";
+
+@ObjectType()
 class User implements UserEntityType {
-  @Expose()
-  id: string
+  @Field(() => ID)
+  id: string;
 
-  datasets: Dataset[]
+  @Field()
+  email: string;
 
-  @Expose()
-  created_at: Date
+  @Field(() => String, { nullable: true })
+  name: string | null;
 
-  @Expose()
-  updated_at: Date
+  @Field(() => String, { nullable: true })
+  phone_number: string | null;
 
-  public toJSON() {
-    return plain(this)
+  @Field(() => String, { nullable: true })
+  language: string | null;
+
+  @Field()
+  created_at: Date;
+
+  @Field()
+  updated_at: Date;
+
+  /* Computed fields */
+
+  get is_admin(): boolean {
+    return (
+      !!this.email &&
+      !!getAdminConfig().emails.find(adminEmail => adminEmail === this.email)
+    );
   }
+
+  /* Relations */
+
+  @Exclude()
+  @Type(() => UserAuthProviderConn)
+  auth_provider_conns: UserAuthProviderConn[];
 }
 
-export { User }
+const PaginatedUser = PaginationConnection(User);
+export type PaginatedUser = InstanceType<typeof PaginatedUser>;
+
+export { User, PaginatedUser };

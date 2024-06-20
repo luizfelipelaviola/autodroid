@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,77 +15,39 @@ datasource db {
 model User {
   id String @id @default(uuid())
 
+  email        String  @unique
+  name         String?
+  phone_number String?
+
+  language     String?
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  datasets Dataset[] @relation(name: "Dataset_User")
+  auth_provider_conns UserAuthProviderConn[] @relation(name: "UserAuthProviderConn_User")
 
+  @@index([email])
+  @@index([created_at, id], map: "users_pagination_idx")
   @@map("users")
 }
 
-model File {
+model UserAuthProviderConn {
   id String @id @default(uuid())
 
-  storage_provider String
-
-  filename    String
-  destination String
-  mime_type   String
-  extension   String
-  size        Int
-
-  payload Json
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  dataset Dataset? @relation(name: "Dataset_File")
-
-  @@map("files")
-}
-
-model Dataset {
-  id String @id @default(uuid())
+  auth_provider String
 
   user_id String
-  user    User   @relation(name: "Dataset_User", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user    User   @relation(name: "UserAuthProviderConn_User", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  file_id String @unique
-  file    File   @relation(name: "Dataset_File", fields: [file_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  description String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  processings Processing[] @relation(name: "Processing_Dataset")
-
-  @@map("datasets")
-}
-
-model Processing {
-  id String @id @default(uuid())
-
-  dataset_id String
-  dataset    Dataset @relation(name: "Processing_Dataset", fields: [dataset_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  processor String
-
-  started_at  DateTime?
-  finished_at DateTime?
-
-  retries Int
-
-  destination String
-
+  code    String
   payload Json
-  params  Json
 
-  status        String
-  status_description String
+  disconnected_at DateTime?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@map("processings")
+  @@index([auth_provider, code])
+  @@index([created_at, id], map: "user_auth_provider_conns_pagination_idx")
+  @@map("user_auth_provider_conns")
 }

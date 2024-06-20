@@ -18,9 +18,26 @@ node_modules/
 .env.local
 
 # Build
+build
 dist
 
 # Storage files
 tmp
+temp
 uploads
 storage
+
+# Docker files
+.runtime
+
+# Tests
+test/outputs
+
+# Others
+
+!tmp/.gitkeep
+translation.missing.json
+
+service-account.json
+
+.docker
