@@ -1,65 +1,66 @@
-# Contributing Guide
+# Guia de Contribuição
 
-- Contributing to this project is fairly easy. This document shows you how to get started!
+- Contribuir para este projeto é bastante fácil. Este documento mostra como começar!
 
-## General
+## Geral
 
-- The [Codebase Structure](./CODEBASE_STRUCTURE.md) has detailed information about how the various files in this project are structured.
-- Please ensure that any changes you make are in accordance with the [Code Guidelines](./CODE_GUIDELINES.md) of this repository.
+- A [Estrutura do Código](./CODEBASE_STRUCTURE.md) contém informações detalhadas sobre como os vários arquivos deste projeto estão estruturados.
+- Por favor, certifique-se de que quaisquer alterações que você fizer estejam de acordo com as [Diretrizes de Código](./CODE_GUIDELINES.md) deste repositório.
 
-## Start working
+## Começando a trabalhar
 
-- Fork the repository
-- Clone your forked repository
-- Create a new branch for your work based on the develop branch
-- Use one branch per fix/feature
-- Possible branch types are:
+- Faça um fork do repositório
+- Clone o repositório forkado
+- Crie um novo branch para o seu trabalho baseado no branch develop
+- Use um branch por correção/funcionalidade
+- Os possíveis tipos de branch são:
   - bugfix
   - feature
   - hotfix
   - release
   - other
-- Create a pull request to the develop branch
+- Crie uma pull request para o branch develop
 
-Example:
+Exemplo:
 
 ```bash
-git checkout -b bugfix/change-something
+git checkout -b bugfix/mudar-algo
 ```
 
-If you get an error, you may need to fetch the repository first by using
+Se você receber um erro, talvez precise buscar o repositório primeiro usando
 
 ```bash
 git remote update && git fetch
 ```
 
-## Update branch with development
+## Atualizando o branch com o desenvolvimento
 
-It's strongly recommended pull development code to your branch to stay updated. Use the command below to perform this task.
+É altamente recomendado puxar o código de desenvolvimento para o seu branch para se manter atualizado. Use o comando abaixo para realizar essa tarefa.
 
 ```bash
 git pull origin development
 ```
 
-You may need to fix some conflicts before continue your code.
+Você pode precisar resolver alguns conflitos antes de continuar com o seu código.
 
-## Submitting changes
+## Enviando alterações
 
-- Install the dependencies using:
+- Instale as dependências usando:
 
   ```bash
   yarn
   ```
 
-- Use this command to start commitizen and follow the instructions on console to build a great commit message for you
+- Use este comando para iniciar o commitizen e siga as instruções no console para criar uma ótima mensagem de commit para você
 
   ```bash
   git commit
-  ````
+  ```
 
-  WARNING: Please mention the issue ID on your commit.
+  AVISO: Por favor, mencione o ID do problema no seu commit.
 
-- Make a pull request
-- Make sure you send the PR to the <code>develop</code> branch
+- Faça uma pull request
+- Certifique-se de enviar a PR para o branch <code>develop</code>
 
-If you follow these instructions, your PR will be set up for success through the project pipeline.
+Se você seguir estas instruções, sua PR estará preparada para o sucesso através do pipeline do projeto.
+

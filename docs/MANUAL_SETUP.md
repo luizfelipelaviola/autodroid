@@ -1,49 +1,49 @@
 # Manual Setup Guide
 
-This guide will help you to setup the project manually.
+Este guia irá ajudá-lo a configurar o projeto manualmente.
 
-## Requirements
+## Requisitos
 
-- Please make sure that the base requirements are met. See [Requirements](../README.md#requirements) for more information.
+- Certifique-se de que os requisitos básicos sejam atendidos. Consulte [Requisitos](../README.md#requisitos) para mais informações.
 - [Node.js](https://nodejs.org/en/) (>= 18.18.0)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install) (>= 1.22.19)
 - [PostgreSQL](https://www.postgresql.org/) (>= 14)
 - [Redis](https://redis.io/) (>= 6.2.5)
 
-You can also setup manually Docker containers for [PostgreSQL](https://hub.docker.com/_/postgres) and [Redis](https://hub.docker.com/_/redis).
+Você também pode configurar manualmente contêineres Docker para [PostgreSQL](https://hub.docker.com/_/postgres) e [Redis](https://hub.docker.com/_/redis).
 
-## Installation
+## Instalação
 
-Using your terminal, clone this repository on your local machine using Git:
+Usando o terminal, clone este repositório em sua máquina local usando o Git:
 
 ```bash
 git clone https://github.com/luizfelipelaviola/autodroid.git
 ```
 
-Navigate to the repository folder:
+Navegue até a pasta do repositório:
 
 ```bash
 cd autodroid
 ```
 
-Install the dependencies:
+Instale as dependências:
 
 ```bash
 yarn install
 ```
 
-## Configuration
+## Configuração
 
-Once you have filled the requirements and installed the dependencies, you can proceed with the configuration.
+Depois de preencher os requisitos e instalar as dependências, você pode prosseguir com a configuração.
 
-### Environment Variables
+### Variáveis de Ambiente
 
-Create a `.env` file in the root of the project and copy the content from the `.env.example` file. Then, fill the environment variables with your own values.
+Crie um arquivo `.env` na raiz do projeto e copie o conteúdo do arquivo `.env.example`. Em seguida, preencha as variáveis de ambiente com seus próprios valores.
 
-### Database
+### Banco de Dados
 
-Please make sure that your PostgreSQL server is running.
-Use the command below to create and migrate the database:
+Certifique-se de que seu servidor PostgreSQL esteja em execução.
+Use o comando abaixo para criar e migrar o banco de dados:
 
 ```bash
 yarn prisma migrate dev
@@ -51,63 +51,63 @@ yarn prisma migrate dev
 
 ### Redis
 
-Please make sure that your Redis server is running.
-No additional configuration is required for Redis.
+Certifique-se de que seu servidor Redis esteja em execução.
+Nenhuma configuração adicional é necessária para o Redis.
 
-## Running
+## Execução
 
-Once you have filled the requirements, installed the dependencies and configured the project, you can proceed with the execution.
+Depois de preencher os requisitos, instalar as dependências e configurar o projeto, você pode prosseguir com a execução.
 
-To run the project in development mode, use the command below:
+Para executar o projeto em modo de desenvolvimento, use o comando abaixo:
 
 ```bash
 yarn dev
 ```
 
-Follow the [Usage](../README.md#usage) instructions to use the project.
+Siga as instruções de [Uso](../README.md#uso) para utilizar o projeto.
 
-## Deployment
+## Implantação
 
-To deploy the project manually (without Docker), you need to build the backend separately.
+Para implantar o projeto manualmente (sem Docker), você precisa construir o backend separadamente.
 
 ### Backend
 
-Navigate to the backend folder:
+Navegue até a pasta do backend:
 
 ```bash
 cd ./packages/backend
 ```
 
-To build this backend for production, use the command below:
+Para construir este backend para produção, use o comando abaixo:
 
 ```bash
 yarn build
 ```
 
-This build outputs just JavaScript files that can be executed by Node.js.
+Esta construção gera apenas arquivos JavaScript que podem ser executados pelo Node.js.
 
-Setup Node.js, Yarn, PostgreSQL and Redis on your server.
+Configure o Node.js, Yarn, PostgreSQL e Redis em seu servidor.
 
-Navigate to the previously selected folder to host the project.
+Navegue até a pasta previamente selecionada para hospedar o projeto.
 
-Transfer the `package.json` and `yarn.lock` files to the folder.
+Transfira os arquivos `package.json` e `yarn.lock` para a pasta.
 
-Transfer the `dist` and `prisma` folders to the same folder where the `package.json` file is located.
+Transfira as pastas `dist` e `prisma` para a mesma pasta onde o arquivo `package.json` está localizado.
 
-Install the dependencies on your server:
+Instale as dependências em seu servidor:
 
 ```bash
 yarn install --production
 ```
 
-Fill the production environment variables in the `.env` file, you can use the file `.env.example` as a reference filling with your own values, including your PostgreSQL and Redis credentials.
+Preencha as variáveis de ambiente de produção no arquivo `.env`, você pode usar o arquivo `.env.example` como referência, preenchendo com seus próprios valores, incluindo suas credenciais do PostgreSQL e Redis.
 
-Run the project:
+Execute o projeto:
 
 ```bash
 yarn start
 ```
 
-The project will be available at the port specified in the `.env` file, by default it is `3333`.
+O projeto estará disponível na porta especificada no arquivo `.env`, por padrão é `3333`.
 
-Please make sure that your web server is very well configured and secure, including firewall, SSL, etc.
+Certifique-se de que seu servidor web esteja bem configurado e seguro, incluindo firewall, SSL, etc.

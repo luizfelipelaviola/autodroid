@@ -1,5 +1,5 @@
-# Code Guidelines
+# Diretrizes de Código
 
-This project is using Typescript and Eslint for code guideline. Follow the rules inside eslint configuration file, which is currently using the standard guideline.
+Este projeto está utilizando Typescript e Eslint para diretrizes de código. Siga as regras dentro do arquivo de configuração do eslint, que atualmente está utilizando as diretrizes do padrão.
 
-Please do not modify Eslint or Typescript configuration files without majority consensus.
+Por favor, não modifique os arquivos de configuração do Eslint ou Typescript sem o consenso da maioria.

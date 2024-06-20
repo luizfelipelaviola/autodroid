@@ -1,64 +1,64 @@
-# API Routes
+# Rotas da API
 
-The following table shows the available routes in the API.
+A tabela a seguir mostra as rotas disponíveis na API.
 
-| Method | Route | Description |
+| Método | Rota | Descrição |
 | --- | --- | --- |
-| GET | /processor | Get all processors |
-| GET | /processor/:id | Get a processor by id |
-| POST (json) | /user/register | Register a new user |
-| GET | /user/:id | Get a user by id |
-| POST (multipart/form-data) | /dataset | Upload a dataset |
-| GET | /dataset | Get all datasets |
-| GET | /dataset/:id | Get a dataset by id |
-| GET | /dataset/:id/download | Download a dataset by id |
-| PUT (json) | /dataset/:id | Update a dataset by id |
-| DELETE | /dataset/:id | Delete a dataset by id |
-| POST (json) | /processing | Request a dataset processing |
-| GET | /processing | Get all processing |
-| GET | /processing/:id | Get a processing by id |
-| GET | /processing/:id/download/:path | Download a processing file by id and its path |
-| DELETE | /processing/:id | Delete a processing by id with all files |
+| GET | /processor | Obter todos os processadores |
+| GET | /processor/:id | Obter um processador pelo ID |
+| POST (json) | /user/register | Registrar um novo usuário |
+| GET | /user/:id | Obter um usuário pelo ID |
+| POST (multipart/form-data) | /dataset | Enviar um conjunto de dados |
+| GET | /dataset | Obter todos os conjuntos de dados |
+| GET | /dataset/:id | Obter um conjunto de dados pelo ID |
+| GET | /dataset/:id/download | Baixar um conjunto de dados pelo ID |
+| PUT (json) | /dataset/:id | Atualizar um conjunto de dados pelo ID |
+| DELETE | /dataset/:id | Excluir um conjunto de dados pelo ID |
+| POST (json) | /processing | Solicitar o processamento de um conjunto de dados |
+| GET | /processing | Obter todos os processamentos |
+| GET | /processing/:id | Obter um processamento pelo ID |
+| GET | /processing/:id/download/:path | Baixar um arquivo de processamento pelo ID e caminho |
+| DELETE | /processing/:id | Excluir um processamento pelo ID com todos os arquivos |
 
-The following commands describes some examples on how to use the API with curl.
+Os seguintes comandos descrevem alguns exemplos de como usar a API com o curl.
 
-## Processor
+## Processador
 
-### Get all processors
+### Obter todos os processadores
 
 ```bash
 curl --request GET \
   --url http://localhost:3333/processor
 ```
 
-### Get a processor by id
+### Obter um processador pelo ID
 
 ```bash
 curl --request GET \
   --url http://localhost:3333/processor/droidaugmentor
 ```
 
-## User
+## Usuário
 
-### Register a new user
+### Registrar um novo usuário
 
 ```bash
 curl --request POST \
   --url http://localhost:3333/user/register
 ```
 
-### Get a user by id
+### Obter um usuário pelo ID
 
 ```bash
 curl --request GET \
   --url http://localhost:3333/user/<<id>>
 ```
 
-Replace `<<id>>` with the user id.
+Substitua `<<id>>` pelo ID do usuário.
 
-## Dataset
+## Conjunto de Dados
 
-### Create/Upload a dataset
+### Criar/Enviar um conjunto de dados
 
 ```bash
 curl --request POST \
@@ -69,11 +69,11 @@ curl --request POST \
   --form 'description=<<description>>'
 ```
 
-Replace `<<user_id>>` with the user id and `<<file>>` with the dataset file.
+Substitua `<<user_id>>` pelo ID do usuário e `<<file>>` pelo arquivo do conjunto de dados.
 
-Replace `<<description>>` with the dataset description.
+Substitua `<<description>>` pela descrição do conjunto de dados.
 
-### Get all datasets
+### Obter todos os conjuntos de dados
 
 ```bash
 curl --request GET \
@@ -81,7 +81,7 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-### Get a dataset by id
+### Obter um conjunto de dados pelo ID
 
 ```bash
 curl --request GET \
@@ -89,9 +89,9 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<dataset_id>>` with the dataset id and `<<user_id>>` with the user id.
+Substitua `<<dataset_id>>` pelo ID do conjunto de dados e `<<user_id>>` pelo ID do usuário.
 
-### Download a dataset by id
+### Baixar um conjunto de dados pelo ID
 
 ```bash
 curl --request GET \
@@ -99,9 +99,9 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<dataset_id>>` with the dataset id and `<<user_id>>` with the user id.
+Substitua `<<dataset_id>>` pelo ID do conjunto de dados e `<<user_id>>` pelo ID do usuário.
 
-### Update a dataset by id
+### Atualizar um conjunto de dados pelo ID
 
 ```bash
 curl --request PUT \
@@ -109,13 +109,13 @@ curl --request PUT \
   --header 'Authorization: Bearer <<user_id>>' \
   --header 'Content-Type: application/json' \
   --data '{
-	"description": "<<description>>"
+  "description": "<<description>>"
 }'
 ```
 
-Replace `<<dataset_id>>` with the dataset id, `<<user_id>>` with the user id and `<<description>>` with the new description.
+Substitua `<<dataset_id>>` pelo ID do conjunto de dados, `<<user_id>>` pelo ID do usuário e `<<description>>` pela nova descrição.
 
-### Delete a dataset by id
+### Excluir um conjunto de dados pelo ID
 
 ```bash
 curl --request DELETE \
@@ -123,11 +123,11 @@ curl --request DELETE \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<dataset_id>>` with the dataset id and `<<user_id>>` with the user id.
+Substitua `<<dataset_id>>` pelo ID do conjunto de dados e `<<user_id>>` pelo ID do usuário.
 
-## Processing
+## Processamento
 
-### Request a dataset processing
+### Solicitar o processamento de um conjunto de dados
 
 ```bash
 curl --request POST \
@@ -135,27 +135,27 @@ curl --request POST \
   --header 'Authorization: Bearer <<user_id>>' \
   --header 'Content-Type: application/json' \
   --data '{
-	"dataset_id": "<<dataset_id>>",
-	"processor": "droidaugmentor",
-	"params": {
-		"verbosity": "20",
-		"dense_layer_sizes_g": "256",
-		"dense_layer_sizes_d": "256",
-		"number_epochs": "1000",
-		"training_algorithm": "Adam"
-	}
+  "dataset_id": "<<dataset_id>>",
+  "processor": "droidaugmentor",
+  "params": {
+    "verbosity": "20",
+    "dense_layer_sizes_g": "256",
+    "dense_layer_sizes_d": "256",
+    "number_epochs": "1000",
+    "training_algorithm": "Adam"
+  }
 }'
 ```
 
-Replace `<<dataset_id>>` with the dataset id and `<<user_id>>` with the user id.
+Substitua `<<dataset_id>>` pelo ID do conjunto de dados e `<<user_id>>` pelo ID do usuário.
 
-Run the "Get all processors" command to get the available processors and its available parameters.
+Execute o comando "Obter todos os processadores" para obter os processadores disponíveis e seus parâmetros disponíveis.
 
-Replace the "processor" value with the selected processor.
+Substitua o valor "processor" pelo processador selecionado.
 
-Fill the "params" object with the available processor parameters.
+Preencha o objeto "params" com os parâmetros disponíveis do processador.
 
-### Get all processing
+### Obter todos os processamentos
 
 ```bash
 curl --request GET \
@@ -163,9 +163,9 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<user_id>>` with the user id.
+Substitua `<<user_id>>` pelo ID do usuário.
 
-### Get a processing by id
+### Obter um processamento pelo ID
 
 ```bash
 curl --request GET \
@@ -173,9 +173,9 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<processing_id>>` with the processing id and `<<user_id>>` with the user id.
+Substitua `<<processing_id>>` pelo ID do processamento e `<<user_id>>` pelo ID do usuário.
 
-### Download a processing file by id and its path
+### Baixar um arquivo de processamento pelo ID e caminho
 
 ```bash
 curl --request GET \
@@ -183,15 +183,15 @@ curl --request GET \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<processing_id>>` with the processing id and `<<user_id>>` with the user id.
+Substitua `<<processing_id>>` pelo ID do processamento e `<<user_id>>` pelo ID do usuário.
 
-Run the "Get a processing by id" command to get the available files.
+Execute o comando "Obter um processamento pelo ID" para obter os arquivos disponíveis.
 
-The path after `/download/` is the file path. Replace `<<file_path>>` with the desired file path. It can also be a directory or nested files and directories.
+O caminho após `/download/` é o caminho do arquivo. Substitua `<<file_path>>` pelo caminho do arquivo desejado. Também pode ser um diretório ou arquivos e diretórios aninhados.
 
-Each file needs to be downloaded individually.
+Cada arquivo precisa ser baixado individualmente.
 
-### Delete a processing by id with all files
+### Excluir um processamento pelo ID com todos os arquivos
 
 ```bash
 curl --request DELETE \
@@ -199,4 +199,4 @@ curl --request DELETE \
   --header 'Authorization: Bearer <<user_id>>'
 ```
 
-Replace `<<processing_id>>` with the processing id and `<<user_id>>` with the user id.
+Substitua `<<processing_id>>` pelo ID do processamento e `<<user_id>>` pelo ID do usuário.

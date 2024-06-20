@@ -18,6 +18,9 @@
   - [ ] References to the installation of the technologies
 - [ ] Frontend
 - [ ] Pagination
+- [ ] Clear the Redis entries for processors that are not running anymore
+- [ ] Update bulljs approach
+- [ ] Split the bulljs files into child process approach
 
 ## EXPERIMENTS
 - [ ] Upload to CDN

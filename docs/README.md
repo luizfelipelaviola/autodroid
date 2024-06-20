@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
-    <img width="200px" height="200px" src="../.github/docs/logo.png" alt="Project logo" style="fill:#000000">
+    <img width="200px" height="200px" src="../.github/docs/0-logo.png" alt="Project logo" style="fill:#000000">
   </a>
 </p>
 
@@ -14,81 +14,162 @@
 
 ---
 
-## 📝 Table of Contents
+## 📝 Índice <a name="summary"></a>
 
-- [About](#about)
-- [Getting Started](#getting_started)
+- [Sobre](#about)
+- [Visão Geral do Projeto](#overview)
+- [Requisitos Funcionais e Não Funcionais](#project_requirements)
+- [Arquitetura](#architecture)
+- [Tecnologias](#built_using)
+- [Ambiente do Usuário](#user_environment)
+- [Primeiros passos](#getting_started)
+- [Utilização](#usage)
+- [Testes](#tests)
 - [Deployment](#deployment)
-- [Usage](#usage)
-- [Troubleshooting](#troubleshooting)
-- [Built Using](#built_using)
-- [Contributing and Coworking](./CONTRIBUTING.md)
+- [Resolução de problemas](#troubleshooting)
+- [Contribuições](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
-- [Codebase Structure](./CODEBASE_STRUCTURE.md)
-- [Code Guidelines](./CODE_GUIDELINES.md)
+- [Referências](#bibliography)
 
-## 📖 About <a name = "about"></a>
+## 📖 Sobre <a name = "about"></a>
 
-This repository contains the monorepo for the AutoDroid application.
+Este repositório contém o monorepo para a aplicação AutoDroid.
 
-### Motivation
+### Motivação
 
-Running applications, for multiple purposes like data processing or even testing, can be a very time consuming task, considering the requisite to install all its dependencies, configure it, and run it.
+Os Hackers do Mal estão utilizando técnicas de IA (Inteligência Artificial) para realizar “mutações” em malware, dificultando sua detecção, que afeta os usuários de computadores e dispositivos móveis, dentre outras tecnologias que possam estar sujeitas a ataque de malware, gerando um aumento do nível de proliferação de malware: um dos maiores desafios da segurança da informação.
 
-Encapsulating applications into Docker containers can be a solution for this problem, but it's still a very manual process, and it's not very easy to manage.
+Os Hackers do Bem podem enfrentar esta proliferação de malwares utilizando ferramentas de IA como o DroidAugmentor para que a detecção dos malwares “mutantes” seja amplamente aprimorada.
 
-### Solution
+Todavia ferramentas tais como a DroidAugmentor manualmente pode ser uma tarefa muito complexa e nada escalável, criando uma grande barreira de aprendizagem e utilização da ferramenta.
 
-AutoDroid is an application that allows users to execute a given external application by a REST API.
+Encapsular aplicativos em contêineres Docker pode ser uma solução para esse problema, mas ainda é um processo muito manual e não é muito fácil de gerenciar.
 
-This software provides a pre-configured list of applications, here called "processor", consisting in a Docker image with its standard input and output configuration and possible parameters.
+### Solução
 
-Acting as a manager/orchestrator of the executions using Docker containers, it's possible to run multiple applications using this software at the same time, and even manage its lifecycle.
+Ao oferecer ferramentas como a DroidAugmentor como um serviço, torna sua execução escalável, de fácil aprendizado e com melhor aproveitamento para experimentação.
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## ✨ Visão Geral do Projeto <a name="overview"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+O serviço proposto se trata da etapa de expansão de Dataset na pipeline de AutoML, conforme apresentado em [DroidAugmentor](https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/27273).
 
-There are two ways to run this application, using Docker or running it manually on your local machine.
+<img src="./.github/docs/2-proposal.jpg" alt="Overview" style="fill:#000000">
 
-The following steps will guide you through the process of running this application by an automated way, using Docker.
+O projeto é composto por diversas partes, com o objetivo final de oferecer uma ferramenta escalável para executar instâncias da DroidAugmentor.
 
-To get started, the machine that will run this application must have the following requirements:
+<img src="./.github/docs/1-overview.jpg" alt="Overview" style="fill:#000000">
 
-### Host Requirements <a name = "requirements"></a>
+## ✅ Requisitos Funcionais (Histórias de Usuário) e Requisitos Não Funcionais <a name="project_requirements"></a>
 
-- Linux OS (e.g. Ubuntu, Debian, and others...) (MacOS/Windows is experimental)
-- Virtualization enabled on BIOS
-- Minimum of 4GB of RAM
-- Minimum of 10GB of free disk space depending on the available "processors" (for files, processing result, database and Docker images)
-- [Git](https://git-scm.com/downloads) installed
-- [Docker](https://docs.docker.com/get-docker/) installed
+O documento de visão/requisitos pode ser acessado [aqui](https://docs.google.com/document/d/1tCNZw9VFt5honSpTOx_DjVQ7-l0qdYta/edit?usp=sharing&ouid=105354267831258985184&rtpof=true&sd=true).
 
-### Installing
+## 🏦 Arquitetura <a name="architecture"></a>
 
-Using your terminal, clone this repository on your local machine using Git:
+Este repositório contém o monorepo para a aplicação AutoDroid, cuja [Estrutura do Código](./CODEBASE_STRUCTURE.md) está disponível na pasta ```./docs``` deste repositório.
+
+O núcleo desta aplicação é o backend, que é uma API REST/GraphQL construída usando Node.js e Express, e está disponível na pasta ```./packages/backend``` deste repositório.
+
+Seguindo o [modelo C4](https://c4model.com/), a arquitetura do back-end é apresentada a seguir:
+
+Visão de sistema:
+<img src="./.github/docs/backend-01-system.jpg" alt="be-system" style="fill:#000000">
+
+Visão de contêiner:
+<img src="./.github/docs/backend-02-container.jpg" alt="be-container" style="fill:#000000">
+
+Visão de componente:
+<img src="./.github/docs/backend-03-component.jpg" alt="be-component" style="fill:#000000">
+
+### Entidades
+
+- `User`: representa um usuário da aplicação. Nenhum dado pessoal é coletado, é apenas um identificador anônimo.
+- `Processor`: representa um processador que será usado para processar um conjunto de dados. É uma imagem Docker que será usada para processar a solicitação de processamento do usuário com os parâmetros fornecidos.
+- `Dataset`: representa um conjunto de dados que será usado por um processador, é um arquivo que será usado como entrada para o processador.
+- `Processing`: representa uma solicitação de processamento feita por um usuário. É uma solicitação para processar um conjunto de dados usando um processador com os parâmetros fornecidos. Todo o ciclo de vida do processamento está disponível nesta entidade, incluindo o status de execução e seu resultado.
+
+### Estrutura do código
+
+A estrutura interna é apresentada em [estrutura do código](./CODEBASE_STRUCTURE.md) e guiada pelo documento de [Guidelines de Código](./CODE_GUIDELINES.md).
+
+A proposta de arquitetura do back-end é baseada em [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) e [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). É guiada por princípios de SOLID e visa a separação de responsabilidades, facilitando a manutenção e evolução do código. Além disso, é proposto o método de desenvolvimento [TDD](https://en.wikipedia.org/wiki/Test-driven_development) para garantir a qualidade do código guiado por testes.
+
+## ⛏️ Tecnologias Utilizadas <a name = "built_using"></a>
+
+- [TypeScript](https://www.typescriptlang.org/) - Linguagem de programação
+- [Node.js](https://nodejs.org/) - Ambiente de execução
+- [Express](https://www.fastify.io/) - Framework web
+- [Docker](https://www.docker.com/) - conteinerização
+- [PostgreSQL](https://www.postgresql.org/) - Banco de dados
+- [Redis](https://redis.io/) - Banco de dados em memória
+- [Tsyringe](https://github.com/microsoft/tsyringe) - Injeção de dependência
+- [Prisma](https://www.prisma.io/) - ORM
+- [Bull](https://optimalbits.github.io/bull/) - Gerenciador de filas
+- [Dockerode](https://github.com/apocas/dockerode) - API Docker
+- [Vitest](https://vitest.dev/) - Framework de testes
+- [Yarn](https://yarnpkg.com/) - Gerenciador de pacotes
+
+### Geral
+
+É importante mencionar as demais ferramentas que serão utilizadas nas duas partes do projeto:
+
+- [Git](https://git-scm.com/) - Controle de versão
+- [Husky](https://typicode.github.io/husky/#/) - Hooks do Git
+- [Lint Staged](https://github.com/okonet/lint-staged) - Ferramenta para verificar arquivos commitados
+- [Commitizen](https://github.com/commitizen/cz-cli) - Auxiliar para mensagens de commit do Git
+- [Commitlint](https://commitlint.js.org/) - Verificador de mensagens de commit do Git
+- [Standard Version](https://github.com/conventional-changelog/standard-version) - Gerador de changelog
+- [Eslint](https://eslint.org/) - Framework de verificação de código
+- [Prettier](https://prettier.io/) - Formatador de código
+- [Semver](https://semver.org/) - Versionamento semântico
+
+## 💻 Ambiente do Usuário <a name="user_environment"></a>
+
+O ambiente do usuário final (utilizador) deverá ter um dispositivo (seja fixo ou móvel) com acesso à internet e com ao menos uma ferramenta de navegação para acessar a versão web do produto ou um cliente de API REST/GraphQL (ex.: curl, httpie, postman, insomnia) previamente instalado em seu dispositivo.
+
+## 🏁 Primeiros Passos <a name = "getting_started"></a>
+
+Estas instruções irão ajudá-lo a obter uma cópia deste projeto e executá-lo em sua máquina local para fins de desenvolvimento e teste. Consulte [deployment](#deployment) para obter informações sobre como implantar o projeto em ambiente produtivo.
+
+Existem duas maneiras de executar esta aplicação, usando o Docker ou executando manualmente em sua máquina local.
+
+Os seguintes passos irão guiá-lo através do processo de execução desta aplicação de forma automatizada, usando o Docker.
+
+Para começar, a máquina que executará esta aplicação deve atender aos seguintes requisitos, considerando a execução através do [Docker](https://docs.docker.com/get-docker/):
+
+### Requisitos Mínimos <a name = "minimum_requirements"></a>
+
+- Sistema operacional Linux (por exemplo, Ubuntu, Debian e outros...) (MacOS/Windows é experimental)
+- Virtualização habilitada na BIOS
+- Mínimo de 4GB de RAM
+- Mínimo de 10GB de espaço livre em disco, dependendo dos "processadores" disponíveis (para arquivos, resultados de processamento, banco de dados e imagens Docker)
+- [Git](https://git-scm.com/downloads) instalado
+- [Docker](https://docs.docker.com/get-docker/) instalado
+
+### Instalação
+
+Usando o terminal, clone este repositório em sua máquina local usando o Git:
 
 ```bash
 git clone https://github.com/luizfelipelaviola/autodroid.git
 ```
 
-Navigate to the repository folder:
+Navegue até a pasta do repositório:
 
 ```bash
 cd autodroid
 ```
 
-Execute the ```start.sh``` script:
+Execute o script ```start.sh```:
 
 ```bash
 ./start.sh
 ```
 
-This script will start the application using Docker compose.
-The startup of the application may take a few minutes, depending on your internet connection and the size of the given "processors".
-The terminal must be kept open during the application execution.
+Este script irá iniciar a aplicação usando o Docker compose.
+A inicialização da aplicação pode levar alguns minutos, dependendo da sua conexão com a internet e do tamanho dos "processadores" fornecidos.
+O terminal deve ser mantido aberto durante a execução da aplicação.
 
-If the startup was successful, you should see some console messages like the following ones:
+Se a inicialização for bem-sucedida, você verá algumas mensagens no console, como por exemplo:
 
 ```bash
 autodroid_api_gateway_prod  | 🆗 Database connection success.
@@ -105,226 +186,171 @@ After successfully starting the application, you can run a demo executing the fo
 ./demo.sh
 ```
 
-Or you can continue manually can use it by following the [usage](#usage) instructions.
+Ou você pode continuar manualmente e usá-lo seguindo as instruções de [uso](#usage).
 
-To stop the application, press ```Ctrl + C``` on the terminal or run ```docker compose down``` on the root of this repository in case you are running the application on detached mode.
+Para parar a aplicação, pressione ```Ctrl + C``` no terminal ou execute ```docker compose down``` na raiz deste repositório, caso esteja executando a aplicação em modo destacado.
 
-By default a folder `./runtime` will be created on the root of this repository to store the application runtime files, including the database and the uploaded files, which is used to persist the data between application executions. Considering that, sometimes to delete this folder, due the Docker permissions, you may need to delete this folder logged as the system administrator user / root (sudo).
+Por padrão, uma pasta `./runtime` será criada na raiz deste repositório para armazenar os arquivos em tempo de execução da aplicação, incluindo o banco de dados e os arquivos enviados, que são utilizados para persistir os dados entre as execuções da aplicação. Considerando isso, às vezes, para excluir essa pasta, devido ao comportamento padrão do Docker, pode ser necessário utilizar um usuário administrador do sistema / root (sudo).
 
-The `./runtime` folder is useful also to study the application data structure and to backup the application data. Please remember that the Docker folder may request to be logged as the system administrator user / root (sudo) to be opened.
+A pasta `./runtime` também é útil para estudar a estrutura de dados da aplicação e fazer backup dos dados da aplicação. Por favor, lembre-se de que a pasta do Docker pode solicitar que você esteja logado como usuário administrador do sistema / root (sudo) para ser visualizada.
 
 ### Manual Setup <a name="manual_setup"></a>
 
-Running this application using the Docker compose environment is the recommended way to run it, avoiding to installing each dependency manually.
+Executar esta aplicação usando o ambiente Docker compose é a forma recomendada, evitando a instalação manual de cada dependência.
 
-A guide to setup the project manually is available at the [manual setup](./MANUAL_SETUP.md) guide.
+Um guia para configurar o projeto manualmente está disponível no guia de [configuração manual](./MANUAL_SETUP.md).
 
-## 📱 Usage <a name="usage"></a>
+## 📱 Utilização <a name="usage"></a>
 
-This application provides a REST API on the Docker compose environment.
+Esta aplicação fornece uma API REST/GraphQL no ambiente Docker compose.
 
-By default, it will be available on your local machine on the following URLs:
-- REST API (port 3333): http://localhost:3333
+Por padrão, estará disponível em sua máquina local nos seguintes URLs:
+- API REST (porta 3333): http://localhost:3333
+- API GraphQL (porta 3333): http://localhost:3333/graphql
 
-This url will be available until the application is stopped.
+Esta URL estará disponível até que a aplicação seja interrompida.
 
-To use the REST API directly, you can follow the instructions at the [API documentation](./API.md) or you can use REST client tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/). There's a [Insomnia collection](./collections/Insomnia.json) on the ```./docs/collections``` folder of this repository that you can import to your REST client application.
+Para usar a API diretamente, você pode seguir as instruções na [documentação da API](./API.md) ou pode usar ferramentas de cliente HTTP como [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/). Há uma [coleção do Insomnia](./collections/Insomnia.json) na pasta ```./docs/collections``` deste repositório que você pode importar para sua aplicação cliente HTTP.
 
-### Entities
+### Usuário/Autorização
 
-- `User`: represents a user of the application. No personal data is collected, it's just an anonymous identifier.
-- `Processor`: represents a processor that will be used to process a dataset. It's a Docker image that will be used to process the user processing request with given parameters.
-- `Dataset`: represents a dataset that will be used by a processor, it's a file that will be used as input for the processor.
-- `Processing`: represents a processing request made by a user. It's a request to process a dataset using a processor with given parameters. The entire processing lifecycle is available on this entity, including the running status and its result.
+Esta aplicação usa autenticação através do provedor Firebase, sendo necessário o envio do header `Authorization` em cada requisição, com o respectivo valor `Bearer ${token}`.
 
-### User/Authorization
+### Processador
 
-This application uses anonymous authentication by just providing a existing user id on the `Authorization` header of the request, followed by the `Bearer ${id}` keyword.
+Os processadores (aplicações como o DroidAugmentor) disponíveis podem ser alterados apenas manualmente pelo administrador da aplicação usando o arquivo [processors.json](../packages/backend/shared/processors.json). Este arquivo é carregado na inicialização da aplicação e é usado para definir os processadores disponíveis, suas configurações e as imagens necessárias a serem obtidas do Docker Hub.
 
-### Processor
+Os parâmetros de configuração são descritos abaixo:
+- `code`: o identificador do processador, usado para referenciá-lo na solicitação de processamento.
+- `name`: o nome do processador.
+- `description`: a descrição do processador.
+- `image`: a imagem Docker do processador, usada para obtê-la do Docker Hub. A imagem de destino deve ser pública.
+- `input_arg`: a chave do argumento que será usada para passar o caminho do arquivo de conjunto de dados para o processador.
+- `input_dir`: o diretório onde o arquivo de conjunto de dados será colocado no contêiner do processador usando volumes.
+- `output_arg`: a chave do argumento que será usada para passar o caminho do arquivo de resultado do processamento para o processador.
+- `output_dir`: o diretório onde o arquivo de resultado do processamento será colocado no contêiner do processador usando volumes.
+- `command`: o comando que executa a ação desejada no contêiner do processador, usando os argumentos fornecidos.
+- `allowed_params`: a lista de chaves de parâmetros aceitos para o processador.
+- `allowed_mime_types`: a lista de tipos MIME aceitos para o arquivo de conjunto de dados. Isso também afetará a validação do upload do arquivo de conjunto de dados.
+- `default_params`: os parâmetros padrão para o processador. Serão usados se o parâmetro especificado não for fornecido na solicitação de processamento.
 
-The available processors can be changed only manually by the application administrator using the [processors.json](../packages/backend/shared/processors.json) file. This file is loaded on the application startup and it's used to define the available processors, its configurations and the necessary images to be pulled from Docker Hub.
+Após alterar o processors.json, se estiver executando no Docker ou em um ambiente de produção, será necessário reiniciar a aplicação para aplicar as alterações.
 
-The configuration parameters are described below:
-- `code`: the identifier of the processor, used to reference it on the processing request.
-- `name`: the name of the processor.
-- `description`: the description of the processor.
-- `image`: the Docker image of the processor, used to pull it from Docker Hub. The target image should be public.
-- `input_arg`: the key of the argument that will be used to pass the dataset file path to the processor.
-- `input_dir`: the directory where the dataset file will be placed on the processor container using volumes.
-- `output_arg`: the key of the argument that will be used to pass the processing result file path to the processor.
-- `output_dir`: the directory where the processing result file will be placed on the processor container using volumes.
-- `command`: the command that executes the desired action on the processor container, using the given arguments.
-- `allowed_params`: the list of accepted parameter keys for the processor.
-- `allowed_mime_types`: the list of accepted MIME types for the dataset file. Will impact on the dataset file upload validation also.
-- `default_params`: the default parameters for the processor. Will be used if the specified parameter is not provided on the processing request.
-
-After changing the processors.json, if running on Docker or a production environment, you'll need to restart the application to apply the changes.
-
-To rebuild the application using the Docker compose environment, you can run the following command on the root of this repository:
+Para reconstruir a aplicação usando o ambiente Docker compose, você pode executar o seguinte comando na raiz deste repositório:
 
 ```bash
 docker compose build
 ```
 
-And then you can run the `./start.sh` script again.
+E então você pode executar o script `./start.sh` novamente.
 
-To build the application manually again for production, you can follow the instructions at the [manual setup](#manual_setup) section.
+Para reconstruir a aplicação manualmente novamente para produção, você pode seguir as instruções na seção [configuração manual](#manual_setup).
 
-### Dataset
+### Conjunto de Dados
 
-The dataset file can be uploaded by the user using the REST API. The dataset file must be a valid file with a valid MIME type, according to the processor configuration.
+O arquivo de conjunto de dados pode ser enviado pelo usuário usando a API. O arquivo de conjunto de dados deve ser um arquivo válido com um tipo MIME válido, de acordo com a configuração do processador.
 
-There is a [dataset example](./samples/dataset_example.csv) on the ```./docs/samples``` folder of this repository that you can use to test the application.
+Há um [exemplo de conjunto de dados](./samples/dataset_example.csv) na pasta ```./docs/samples``` deste repositório que você pode usar para testar a aplicação.
 
-The user reference is just to mention the user that uploaded the dataset file.
-It can be downloaded, changed or deleted by any other user.
+A referência do usuário é apenas para mencionar o usuário que enviou o arquivo de conjunto de dados.
+Ele pode ser baixado, alterado ou excluído por qualquer outro usuário.
 
-### Processing
+### Processamento
 
-The processing request can be made by the user using the REST API. The processing request must be made by a valid user and must contain a valid dataset file and a valid processor followed by the desired parameters.
+A solicitação de processamento pode ser feita pelo usuário usando a API. A solicitação de processamento deve ser feita por um usuário válido e deve conter um arquivo de conjunto de dados válido e um processador válido seguido dos parâmetros desejados.
 
-The processing request will be queued and processed by the application, and the processing result will be available on the processing entity. The process can take a several minutes, hours or even days depending on the processor and the dataset file.
+A solicitação de processamento será enfileirada e processada pela aplicação, e o resultado do processamento estará disponível na entidade de processamento. O processo pode levar vários minutos, horas ou até mesmo dias, dependendo do processador e do arquivo de conjunto de dados.
 
-The user reference is just to mention the user that requested the processing.
-It can be downloaded, changed or deleted by any other user.
+A referência do usuário é apenas para mencionar o usuário que solicitou o processamento.
+Ele pode ser baixado, alterado ou excluído por qualquer outro usuário.
 
-### Common flow
+### Fluxo comum
 
-The following flowchart describes the common flow of the application:
-
-<p align="center">
-  <img src="../.github/docs/flowchart.jpg" alt="Common flow">
-</p>
-
-## 🏛 Architecture <a name="architecture"></a>
-
-This repository contains the monorepo for the AutoDroid application, which [Codebase Structure](./CODEBASE_STRUCTURE.md) is available at the ```./docs``` folder of this repository.
-
-The core of this application is the backend, which is a REST API built using Node.js and Express, and it's available at the ```./packages/backend``` folder of this repository.
-
-The system view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
+O fluxograma a seguir descreve o fluxo comum da aplicação:
 
 <p align="center">
-  <img src="../.github/docs/1system.jpg" alt="C4 system model">
+  <img src="../.github/docs/3-common-flowchart.jpg" alt="Fluxo comum">
 </p>
 
-The container view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
+## ✅ Testes <a name = "tests"></a>
 
-<p align="center">
-  <img src="../.github/docs/2container.jpg" alt="C4 container model">
-</p>
-
-The component view of the backend is described on the following [C4 model](https://c4model.com/) diagram:
-
-<p align="center">
-  <img src="../.github/docs/3component.jpg" alt="C4 component model">
-</p>
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-To run tests, please execute the command below:
+Para executar os testes, por favor execute o comando abaixo:
 ```bash
 yarn test
 ```
 
-Code coverage will be generated on `__tests__` page
+A cobertura de código e outros relatórios serão gerados na pasta `./packages/backend/test/outputs`.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-This application is ready for Docker and docker compose deployment.
+Esta aplicação está pronta para implantação com Docker e docker compose.
 
-To backend deployment on a Virtual Machine, make a clone of this repository on the target, select the desired branch, and, after completing the requirements, run the following commands:
+Para implantar o backend em uma Máquina Virtual, faça um clone deste repositório no destino, selecione o branch desejado e, após atender aos requisitos, execute os seguintes comandos:
 
 ```bash
 docker compose build
 ```
 
-Once the application was built, fill ```docker-compose.yml``` with your environment variables and run the following command:
+Depois que a aplicação for construída, preencha o arquivo ```docker-compose.yml``` com suas variáveis de ambiente e execute o seguinte comando:
 
 ```bash
 docker compose up -d
 ```
 
-Make sure that your Firewalls, Load Balancers and your DNS is well configured.
+Certifique-se de que seus Firewalls, Balanceadores de Carga e DNS estejam bem configurados.
 
-## 🛠 Troubleshooting <a name = "troubleshooting"></a>
+## 🛠 Solução de Problemas <a name = "troubleshooting"></a>
 
-The Docker universe is awesome, but sometimes it can be a little bit tricky. Some errors may occur during the application execution, and some of them might be related to Docker.
+O Docker é incrível, mas às vezes pode ser um pouco complicado. Alguns erros podem ocorrer durante a execução da aplicação, e alguns deles podem estar relacionados ao Docker.
 
-### Errors before the application startup
+### Erros antes da inicialização
 
-If you are facing some errors before the application startup, please check the following items:
+Se você estiver enfrentando alguns erros antes da inicialização da aplicação, verifique os seguintes itens:
 
-- Check if you have the [requirements](#requirements) installed on your machine.
-- Check if you have the [Docker](https://docs.docker.com/get-docker/) running on your machine.
-- Check if you have enough free disk space on your machine, at least 10GB.
-- Check if you can pull another images from Docker hub, like `docker run --rm hello-world:latest`.
+- Verifique se você tem os [requisitos](#minimum_requirements) instalados em sua máquina.
+- Verifique se você tem o [Docker](https://docs.docker.com/get-docker/) em execução em sua máquina.
+- Verifique se você tem espaço livre suficiente em seu disco, pelo menos 10GB.
+- Verifique se você pode baixar outras imagens do Docker Hub, como `docker run --rm hello-world:latest`.
 
-### Cleaning the Docker environment
+### Limpando o ambiente do Docker
 
-If you are facing some errors related to Docker, you can try to clean the Docker environment by running the following commands:
+Se você estiver enfrentando alguns erros relacionados ao Docker, você pode tentar limpar o ambiente do Docker executando os seguintes comandos:
 
 ```bash
-# Stop all containers
+# Pare todos os containers
 docker compose down
 docker stop $(docker ps -q)
 
-# Remove all files from the runtime folder
+# Remova todos os arquivos da pasta runtime
 sudo rm -rf ./.runtime
 
-# Remove all images related to this project
+# Remova todas as imagens relacionadas a este projeto
 docker rmi $(docker images -q -f "reference=autodroid_*")
 
-# Restart your network service
+# Reinicie o serviço de rede
 sudo systemctl restart NetworkManager.service
 
-# (Optional) Prune your Docker environment
+# (Opcional) Limpe o ambiente do Docker
 docker system prune -a
 ```
 
-### Checking the steps
+### Verificando as etapas de inicialização
 
-If you are facing some errors during the application startup, you can check the steps of the startup by running the following commands:
+Se você estiver enfrentando alguns erros durante a inicialização da aplicação, você pode verificar as etapas da inicialização executando os seguintes comandos:
 
 ```bash
-# Try to use any image from Docker Hub that isn't in your machine
+# Tente usar qualquer imagem do Docker Hub que não esteja em sua máquina para verificar se o Docker instalado está funcionando como esperado
 docker rmi hello-world
 docker run --rm hello-world:latest
 
-# Try to build the application manually, in case of error, send the error message to the project maintainer
+# Tente construir a aplicação manualmente, em caso de erro, envie a mensagem de erro para o mantenedor do projeto
 docker compose build --no-cache
 ```
 
-After running this steps, if the error persists, please open an issue on this repository.
+Após executar essas etapas, se o erro persistir, por favor abra uma issue neste repositório.
 
-## ⛏️ Built Using <a name = "built_using"></a>
+## 📖 Referências <a name="bibliography"></a>
 
-### Backend
+CASOLA, Karina; PAIM, Kayuã Oleques; MANSILHA, Rodrigo Brandão; KREUTZ, Diego. DroidAugmentor: uma ferramenta de treinamento e avaliação de cGANs para geração de dados sintéticos. In: SALÃO DE FERRAMENTAS - SIMPÓSIO BRASILEIRO DE SEGURANÇA DA INFORMAÇÃO E DE SISTEMAS COMPUTACIONAIS (SBSEG), 23. , 2023, Juiz de Fora/MG. Anais [...]. Porto Alegre: Sociedade Brasileira de Computação, 2023 . p. 57-64. DOI: https://doi.org/10.5753/sbseg_estendido.2023.235793.
 
-- [Node](https://nodejs.org/) - Javascript runtime
-- [Docker](https://www.docker.com/) - Container runtime
-- [Redis](https://redis.io/) - In-memory database
-- [PostgreSQL](https://www.postgresql.org/) - Database
-- [Express](https://expressjs.com/) - Framework
-- [Tsyringe](https://github.com/microsoft/tsyringe) - Dependency injection
-- [Prisma](https://www.prisma.io/) - ORM
-- [TypeScript](https://www.typescriptlang.org/) - Javascript with syntax for types
-- [Bull](https://github.com/OptimalBits/bull) - Queue manager
-- [Dockerode](https://github.com/apocas/dockerode) - Docker API
-- [Yarn](https://yarnpkg.com/) - Package manager
-- [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) - Monorepo management
-
-### General
-
-It's important to mention this tools/patterns which guides the application lifecycle:
-
-- [Git](https://git-scm.com/) - Version control
-- [Husky](https://typicode.github.io/husky/#/) - Git hooks
-- [Lint Staged](https://github.com/okonet/lint-staged) - Tool to lint commit staged files
-- [Commitizen](https://github.com/commitizen/cz-cli) - Git commit message helper
-- [Commitlint](https://commitlint.js.org/) - Git commit message linter
-- [Standard Version](https://github.com/conventional-changelog/standard-version) - Changelog generator
-- [Eslint](https://eslint.org/) - Linter framework
-- [Prettier](https://prettier.io/) - Code formatter
-- [Semver](https://semver.org/) - Semantic versioning
+LAVIOLA, Luiz Felipe; PAIM, Kayuã Oleques; KREUTZ, Diego; MANSILHA, Rodrigo Brandão. AutoDroid: disponibilizando a ferramenta DroidAugmentor como serviço. In: ESCOLA REGIONAL DE REDES DE COMPUTADORES (ERRC), 20. , 2023, Porto Alegre/RS. Anais [...]. Porto Alegre: Sociedade Brasileira de Computação, 2023 . p. 145-150. DOI: https://doi.org/10.5753/errc.2023.929.

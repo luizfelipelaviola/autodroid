@@ -1,14 +1,15 @@
-### What is the feature?
-(Describe what the feature is)
+### Qual é a funcionalidade?
+(Descreva qual é a funcionalidade)
 
-### What is the solution?
-(Describe at a high level how the feature was implemented)
+### Qual é a solução?
+(Descreva de forma geral como a funcionalidade foi implementada)
 
-### What areas of the site does it impact?
-(Describe what parts of the site are impacted and*if*code touched other areas)
+### Quais áreas do site são impactadas?
+(Descreva quais partes do site são impactadas e *se* o código afetou outras áreas)
 
-### How to test?
-(Describe the prerequisites and the steps to test)
+### Como testar?
+(Descreva os pré-requisitos e os passos para testar)
 
-### Other Notes
-(Add any additional information that would be useful to the developer or QA tester)
+### Outras observações
+(Adicione qualquer informação adicional que seja útil para o desenvolvedor ou testador de QA)
+

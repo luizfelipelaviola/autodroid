@@ -21,8 +21,8 @@ class App {
 
     this.middlewares()
     this.routes()
-    this.errorHandler()
     this.fallbackHandler()
+    this.errorHandler()
   }
 
   private middlewares() {

@@ -1,11 +1,12 @@
-# Commit Message Guidelines
+# Diretrizes para Mensagens de Commit
 
-This project uses [Commitizen](https://commitizen-tools.github.io/commitizen/), and Conventional Commitlint to make great commit messages.
+Este projeto utiliza o [Commitizen](https://commitizen-tools.github.io/commitizen/) e o Conventional Commitlint para criar mensagens de commit excelentes.
 
-Please do not disable those features without the approval of the team.
+Por favor, não desabilite esses recursos sem a aprovação da equipe.
 
-You can skip those interactions by:
+Você pode pular essas interações usando:
 
 ```git
 git commit --no-verify
 ```
+
