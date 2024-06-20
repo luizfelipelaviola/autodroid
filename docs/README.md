@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
-    <img width="200px" height="200px" src=".../.github/docs/0-logo.png" alt="Project logo" style="fill:#000000">
+    <img width="200px" height="200px" src="../.github/docs/0-logo.png" alt="Project logo" style="fill:#000000">
   </a>
 </p>
 
@@ -269,7 +269,7 @@ Ele pode ser baixado, alterado ou excluído por qualquer outro usuário.
 O fluxograma a seguir descreve o fluxo comum da aplicação:
 
 <p align="center">
-  <img src=".../.github/docs/3-common-flowchart.jpg" alt="Fluxo comum">
+  <img src="../.github/docs/3-common-flowchart.jpg" alt="Fluxo comum">
 </p>
 
 ## ✅ Testes <a name = "tests"></a>
