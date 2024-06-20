@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
-    <img width="200px" height="200px" src="../.github/docs/0-logo.png" alt="Project logo" style="fill:#000000">
+    <img width="200px" height="200px" src=".../.github/docs/0-logo.png" alt="Project logo" style="fill:#000000">
   </a>
 </p>
 
@@ -53,11 +53,11 @@ Ao oferecer ferramentas como a DroidAugmentor como um serviço, torna sua execu�
 
 O serviço proposto se trata da etapa de expansão de Dataset na pipeline de AutoML, conforme apresentado em [DroidAugmentor](https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/27273).
 
-<img src="./.github/docs/2-proposal.jpg" alt="Overview" style="fill:#000000">
+<img src="../.github/docs/2-proposal.jpg" alt="Overview" style="fill:#000000">
 
 O projeto é composto por diversas partes, com o objetivo final de oferecer uma ferramenta escalável para executar instâncias da DroidAugmentor.
 
-<img src="./.github/docs/1-overview.jpg" alt="Overview" style="fill:#000000">
+<img src="../.github/docs/1-overview.jpg" alt="Overview" style="fill:#000000">
 
 ## ✅ Requisitos Funcionais (Histórias de Usuário) e Requisitos Não Funcionais <a name="project_requirements"></a>
 
@@ -72,13 +72,13 @@ O núcleo desta aplicação é o backend, que é uma API REST/GraphQL construíd
 Seguindo o [modelo C4](https://c4model.com/), a arquitetura do back-end é apresentada a seguir:
 
 Visão de sistema:
-<img src="./.github/docs/backend-01-system.jpg" alt="be-system" style="fill:#000000">
+<img src="../.github/docs/backend-01-system.jpg" alt="be-system" style="fill:#000000">
 
 Visão de contêiner:
-<img src="./.github/docs/backend-02-container.jpg" alt="be-container" style="fill:#000000">
+<img src="../.github/docs/backend-02-container.jpg" alt="be-container" style="fill:#000000">
 
 Visão de componente:
-<img src="./.github/docs/backend-03-component.jpg" alt="be-component" style="fill:#000000">
+<img src="../.github/docs/backend-03-component.jpg" alt="be-component" style="fill:#000000">
 
 ### Entidades
 
@@ -269,7 +269,7 @@ Ele pode ser baixado, alterado ou excluído por qualquer outro usuário.
 O fluxograma a seguir descreve o fluxo comum da aplicação:
 
 <p align="center">
-  <img src="../.github/docs/3-common-flowchart.jpg" alt="Fluxo comum">
+  <img src=".../.github/docs/3-common-flowchart.jpg" alt="Fluxo comum">
 </p>
 
 ## ✅ Testes <a name = "tests"></a>
